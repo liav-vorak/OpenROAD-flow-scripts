@@ -82,8 +82,22 @@ _installUbuntuPackages() {
         ruby-dev \
         time
 
-    # install KLayout
-    if _versionCompare $1 -ge 23.04; then
+
+    #Install KLayout
+    arch=$(uname -m)
+    if [[ $arch == "aarch64" ]]; then
+        echo "Installing KLayout for aarch64 architecture"
+        lastDir="$(pwd)"
+        baseDir="/tmp/installers"
+        installDir="/usr/bin"
+        mkdir -p "${baseDir}"
+        cd "${baseDir}"
+        git clone https://github.com/KLayout/klayout.git
+        cd klayout
+        ./build.sh -bin "${installDir}"
+        cd "${lastDir}"
+        rm -rf "${baseDir}"
+    elif _versionCompare $1 -ge 23.04; then
         apt-get install klayout python3-pandas
     else
         if [[ $1 == 20.04 ]]; then
