@@ -82,7 +82,7 @@ _installUbuntuPackages() {
         ruby-dev \
         time
 
-    #Install KLayout
+    # install KLayout
     if _versionCompare $1 -ge 23.04; then
         apt-get install klayout python3-pandas
     else
